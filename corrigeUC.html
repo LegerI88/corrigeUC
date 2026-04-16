@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CORRIGÉ — Évaluation Unités Commerciales</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#18181b;--ink-soft:#3f3f46;--ink-muted:#71717a;--paper:#fafaf9;--paper-warm:#f5f3ef;--accent:#1d4ed8;--accent-light:#dbeafe;--gold:#b45309;--gold-light:#fef3c7;--coral:#be123c;--coral-light:#ffe4e6;--teal:#0f766e;--teal-light:#ccfbf1;--vert:#15803d;--vert-light:#dcfce7;--rouge:#991b1b;--border:#d4d4d8;--border-strong:#a1a1aa;--shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:#fef2f2;color:var(--ink);min-height:100vh;}
+
+/* SETUP */
+#setup-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 16px;background:#fef2f2;}
+.setup-card{background:white;border-radius:20px;padding:48px 52px;max-width:580px;width:100%;box-shadow:0 8px 48px rgba(153,27,27,.15);border:2px solid #fca5a5;}
+.setup-eyebrow{font-family:'Fira Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--rouge);margin-bottom:10px;}
+.setup-title{font-family:'Playfair Display',serif;font-size:34px;font-weight:900;color:var(--ink);line-height:1.15;margin-bottom:8px;}
+.setup-sub{font-size:13.5px;color:var(--ink-muted);margin-bottom:28px;line-height:1.6;padding:10px 14px;background:#fef2f2;border-left:4px solid var(--rouge);border-radius:0 8px 8px 0;}
+.form-group{margin-bottom:18px;}
+.form-label{display:block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--ink-soft);margin-bottom:7px;}
+.form-input{width:100%;border:2px solid var(--border);border-radius:10px;padding:11px 16px;font-family:'Nunito',sans-serif;font-size:14px;color:var(--ink);background:var(--paper);transition:border-color .18s;outline:none;}
+.form-input:focus{border-color:var(--rouge);background:white;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.enseigne-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:8px;}
+.enseigne-chip{border:2px solid var(--border);border-radius:8px;padding:7px 6px;font-size:12px;font-weight:700;color:var(--ink-soft);cursor:pointer;text-align:center;transition:all .15s;background:var(--paper);}
+.enseigne-chip:hover,.enseigne-chip.selected{border-color:var(--rouge);color:var(--rouge);background:#fef2f2;}
+.hint{font-size:11px;color:var(--ink-muted);margin-top:4px;}
+.btn-launch{width:100%;margin-top:24px;background:var(--rouge);color:white;border:none;border-radius:12px;padding:15px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;cursor:pointer;letter-spacing:.5px;transition:background .18s,transform .1s;box-shadow:0 4px 14px rgba(153,27,27,.3);}
+.btn-launch:hover{background:#7f1d1d;transform:translateY(-1px);}
+
+/* CORRIGE SCREEN */
+#corrige-screen{display:none;}
+.topbar{position:sticky;top:0;z-index:50;background:white;border-bottom:3px solid var(--rouge);padding:10px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 2px 12px rgba(153,27,27,.12);}
+.topbar-badge{background:var(--rouge);color:white;border-radius:8px;padding:4px 12px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;}
+.topbar-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;}
+.topbar-enseigne{font-size:12px;color:var(--ink-muted);font-weight:600;}
+.topbar-actions{display:flex;gap:10px;}
+.btn-pdf{background:var(--rouge);color:white;border:none;border-radius:8px;padding:8px 18px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;}
+.btn-pdf:hover{background:#7f1d1d;}
+.btn-reset{background:transparent;color:var(--ink-muted);border:2px solid var(--border);border-radius:8px;padding:8px 14px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;}
+.btn-reset:hover{border-color:var(--rouge);color:var(--rouge);}
+
+.eval-body{max-width:880px;margin:0 auto;padding:28px 20px 60px;}
+
+/* BANDEAU CORRIGE */
+.corrige-banner{background:linear-gradient(120deg,var(--rouge) 0%,#b91c1c 100%);border-radius:14px;padding:20px 28px;color:white;margin-bottom:22px;display:flex;justify-content:space-between;align-items:center;}
+.corrige-banner h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:3px;}
+.corrige-banner .sub{font-size:12px;opacity:.7;}
+.corrige-badge{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);border-radius:10px;padding:8px 20px;text-align:center;}
+.corrige-badge .bval{font-family:'Fira Mono',monospace;font-size:24px;font-weight:700;color:#FFD700;}
+.corrige-badge .blabel{font-size:10px;opacity:.6;text-transform:uppercase;letter-spacing:1px;}
+
+/* FICHE META */
+.fiche-meta{background:white;border-radius:12px;border:2px solid #fca5a5;padding:16px 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-bottom:22px;}
+.fiche-meta-item{padding:8px 14px;border-right:1px solid var(--border);}
+.fiche-meta-item:last-child{border-right:none;}
+.meta-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-muted);font-weight:700;margin-bottom:3px;}
+.meta-val{font-size:13px;font-weight:800;color:var(--ink);}
+
+/* PARTIE */
+.partie{background:white;border-radius:14px;border:2px solid var(--border);overflow:hidden;margin-bottom:20px;box-shadow:var(--shadow);}
+.partie-header{padding:14px 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--border);}
+.partie-header-left{display:flex;align-items:center;gap:12px;}
+.partie-num{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:white;flex-shrink:0;}
+.partie-title{font-size:14px;font-weight:800;color:var(--ink);}
+.partie-subtitle{font-size:11px;color:var(--ink-muted);margin-top:1px;}
+.partie-pts{font-family:'Fira Mono',monospace;font-size:12px;color:var(--ink-muted);background:var(--paper-warm);border:1px solid var(--border);border-radius:6px;padding:4px 10px;white-space:nowrap;}
+.partie-body{padding:20px 22px;}
+
+/* QUESTION */
+.question{margin-bottom:22px;padding-bottom:22px;border-bottom:1px dashed var(--border);}
+.question:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+.question-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;}
+.q-num{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:white;flex-shrink:0;margin-top:1px;}
+.q-text{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.5;flex:1;}
+.q-pts{font-family:'Fira Mono',monospace;font-size:11px;color:var(--gold);background:var(--gold-light);border:1px solid #fcd34d;border-radius:5px;padding:2px 8px;white-space:nowrap;flex-shrink:0;margin-top:2px;}
+
+/* CORRIGE BOX */
+.corrige-box{background:var(--vert-light);border:2px solid #86efac;border-radius:10px;padding:14px 18px;margin-top:8px;}
+.corrige-box-header{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--vert);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.corrige-item{font-size:13px;color:var(--ink);line-height:1.65;margin-bottom:4px;display:flex;gap:8px;}
+.corrige-item .ci-label{font-weight:800;color:var(--vert);min-width:160px;flex-shrink:0;font-size:12px;}
+.corrige-item .ci-val{flex:1;}
+.corrige-item .ci-val em{color:var(--ink-muted);font-style:italic;font-size:12px;}
+
+/* CORRIGE TABLE */
+.ctable{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px;}
+.ctable th{padding:8px 12px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:white;}
+.ctable td{padding:8px 12px;border:1px solid #d1fae5;vertical-align:top;}
+.ctable tr:nth-child(odd) td{background:#f0fdf4;}
+.ctable tr:nth-child(even) td{background:white;}
+.ctable td:first-child{font-weight:700;color:var(--vert);width:160px;}
+.ctable td .rep{font-weight:700;color:var(--vert);}
+.ctable td .alt{font-size:11px;color:var(--ink-muted);font-style:italic;}
+
+/* ENSEIGNE SELECTOR TABS */
+.enseigne-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+.etab{border:2px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;color:var(--ink-soft);background:white;}
+.etab:hover,.etab.active{border-color:var(--rouge);color:var(--rouge);background:#fef2f2;}
+
+/* VRAI FAUX corrigé */
+.vf-corrige{border:2px solid #86efac;border-radius:10px;overflow:hidden;margin-top:6px;}
+.vf-corrige-row{display:flex;align-items:center;gap:0;border-bottom:1px solid #d1fae5;}
+.vf-corrige-row:last-child{border-bottom:none;}
+.vf-corrige-row:nth-child(odd){background:#f0fdf4;}
+.vf-corrige-row:nth-child(even){background:white;}
+.vf-aff{flex:1;padding:9px 14px;font-size:12.5px;}
+.vf-rep{width:80px;padding:9px;text-align:center;font-weight:800;font-size:13px;}
+.vf-rep.v{color:var(--vert);}
+.vf-rep.f{color:var(--rouge);}
+.vf-expl{font-size:11px;color:var(--ink-muted);font-style:italic;padding:0 14px 6px 14px;}
+
+/* REMARQUE PEDAGOGIQUE */
+.rempeda{background:#eff6ff;border:1.5px solid #93c5fd;border-radius:10px;padding:12px 16px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.6;}
+.rempeda strong{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;color:var(--accent);}
+
+/* BAREME RECAP */
+.bareme-recap{background:white;border-radius:14px;border:2px solid #fca5a5;overflow:hidden;margin-bottom:20px;box-shadow:var(--shadow);}
+.bareme-recap-header{background:linear-gradient(120deg,var(--rouge) 0%,#b91c1c 100%);padding:14px 22px;display:flex;align-items:center;gap:10px;}
+.bareme-recap-header h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:white;}
+.brec-body{padding:20px 22px;}
+.brec-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.brec-table th{background:var(--ink);color:white;padding:8px 14px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;}
+.brec-table td{padding:8px 14px;border:1px solid var(--border);}
+.brec-table tr:nth-child(odd) td{background:var(--paper-warm);}
+.brec-table .pts-col{font-family:'Fira Mono',monospace;font-weight:700;color:var(--gold);text-align:center;}
+.brec-table .crit-col{font-size:11.5px;color:var(--ink-muted);}
+.brec-total{background:var(--gold-light);border:2px solid #fcd34d;border-radius:10px;padding:14px 20px;margin-top:14px;display:flex;justify-content:space-between;align-items:center;}
+.brec-total .bt-label{font-weight:800;font-size:13px;color:var(--gold);}
+.brec-total .bt-note{font-family:'Fira Mono',monospace;font-size:28px;font-weight:700;color:var(--gold);}
+
+/* REMARQUE ENSEIGNE DYNAMIQUE */
+.dyn-e{color:var(--rouge);font-style:italic;font-weight:800;}
+
+@media print{
+body{background:white;font-size:11px;}
+.topbar,.btn-pdf,.btn-reset,.enseigne-tabs,.etab{display:none!important;}
+.eval-body{padding:0;max-width:100%;}
+.partie,.bareme-recap,.corrige-banner,.fiche-meta{box-shadow:none;page-break-inside:avoid;margin-bottom:12px;}
+.corrige-banner,.partie-num,.q-num,.ctable th,.vf-rep,.bareme-recap-header,.brec-table th,.corrige-box,.corrige-box-header,.vf-corrige-row:nth-child(odd){-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+@page{margin:12mm 14mm;}
+}
+</style>
+</head>
+<body>
+
+<!-- SETUP -->
+<div id="setup-screen">
+  <div class="setup-card">
+    <div class="setup-eyebrow">Réservé enseignant · Ne pas distribuer</div>
+    <h1 class="setup-title">CORRIGÉ<br>Unités Commerciales</h1>
+    <p class="setup-sub">🔒 Document réservé à LEGER Isabelle. Sélectionnez l'enseigne étudiée pour afficher les réponses attendues adaptées.</p>
+
+    <div class="form-group">
+      <label class="form-label">Enseigne étudiée par la classe</label>
+      <div class="enseigne-grid">
+        <div class="enseigne-chip" onclick="selectEnseigne('Franprix')">Franprix</div>
+        <div class="enseigne-chip" onclick="selectEnseigne('Casino')">Casino</div>
+        <div class="enseigne-chip" onclick="selectEnseigne('Cdiscount')">Cdiscount</div>
+        <div class="enseigne-chip" onclick="selectEnseigne('Carrefour')">Carrefour</div>
+        <div class="enseigne-chip" onclick="selectEnseigne('Leclerc')">Leclerc</div>
+        <div class="enseigne-chip" onclick="selectEnseigne('Lidl')">Lidl</div>
+        <div class="enseigne-chip" onclick="selectEnseigne('Amazon')">Amazon</div>
+        <div class="enseigne-chip" onclick="selectEnseigne('FNAC')">FNAC</div>
+        <div class="enseigne-chip" onclick="selectEnseigne('Decathlon')">Decathlon</div>
+        <div class="enseigne-chip" onclick="selectEnseigne('Zara')">Zara</div>
+        <div class="enseigne-chip" onclick="selectEnseigne('Sephora')">Sephora</div>
+        <div class="enseigne-chip" onclick="selectEnseigne('Autre')">Autre</div>
+      </div>
+      <input type="text" class="form-input" id="cfg-enseigne" placeholder="Ou tapez librement le nom de l'enseigne" style="margin-top:8px;">
+      <p class="hint">Le corrigé s'adapte automatiquement à l'enseigne choisie avec les réponses attendues.</p>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Classe</label>
+        <input type="text" class="form-input" id="cfg-classe" value="2de Bac Pro">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Date</label>
+        <input type="date" class="form-input" id="cfg-date">
+      </div>
+    </div>
+
+    <button class="btn-launch" onclick="afficherCorrige()">Afficher le corrigé →</button>
+  </div>
+</div>
+
+<!-- CORRIGE -->
+<div id="corrige-screen">
+  <div class="topbar no-print">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <span class="topbar-badge">✅ Corrigé</span>
+      <div>
+        <div class="topbar-title">Les Unités Commerciales</div>
+        <div class="topbar-enseigne" id="bar-enseigne">—</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn-pdf" onclick="window.print()">⬇️ Enregistrer en PDF</button>
+      <button class="btn-reset" onclick="resetCorrige()">↩ Changer d'enseigne</button>
+    </div>
+  </div>
+
+  <div class="eval-body">
+
+    <div class="corrige-banner">
+      <div>
+        <h2>CORRIGÉ — Les Unités Commerciales</h2>
+        <div class="sub">Enseigne : <span id="banner-enseigne" style="font-weight:800;color:#FFD700;"></span> &nbsp;|&nbsp; LEGER Isabelle &nbsp;|&nbsp; <span id="banner-classe"></span></div>
+        <div class="sub" style="margin-top:3px;color:rgba(255,255,255,.5);font-size:11px;">🔒 Document réservé à l'enseignant(e) — Ne pas distribuer aux élèves</div>
+      </div>
+      <div class="corrige-badge">
+        <div class="bval">/ 20</div>
+        <div class="blabel">Barème total</div>
+      </div>
+    </div>
+
+    <div class="fiche-meta">
+      <div class="fiche-meta-item"><div class="meta-label">Enseigne</div><div class="meta-val" id="m-enseigne">—</div></div>
+      <div class="fiche-meta-item"><div class="meta-label">Classe</div><div class="meta-val" id="m-classe">—</div></div>
+      <div class="fiche-meta-item"><div class="meta-label">Date</div><div class="meta-val" id="m-date">—</div></div>
+      <div class="fiche-meta-item"><div class="meta-label">Document</div><div class="meta-val" style="color:var(--rouge);">Corrigé enseignant</div></div>
+    </div>
+
+    <!-- ENSEIGNE TABS (no-print) -->
+    <div class="enseigne-tabs no-print" id="enseigne-tabs"></div>
+
+    <!-- ═══════════════════════════════
+         PARTIE 1 — IDENTIFIER (6 pts)
+    ═══════════════════════════════ -->
+    <div class="partie">
+      <div class="partie-header" style="background:#eff6ff;">
+        <div class="partie-header-left">
+          <div class="partie-num" style="background:var(--accent);">1</div>
+          <div><div class="partie-title">Identifier l'unité commerciale</div><div class="partie-subtitle">Type, format et localisation</div></div>
+        </div>
+        <div class="partie-pts">6 points</div>
+      </div>
+      <div class="partie-body">
+
+        <!-- Q1 -->
+        <div class="question">
+          <div class="question-top">
+            <div class="q-num" style="background:var(--accent);">1</div>
+            <div class="q-text">Complétez la carte d'identité de l'enseigne <span class="dyn-e" id="q1-enseigne"></span>.</div>
+            <div class="q-pts">3 pts — 0,5 pt / critère</div>
+          </div>
+          <div class="corrige-box">
+            <div class="corrige-box-header">✅ Réponses attendues</div>
+            <table class="ctable">
+              <thead><tr><th style="background:var(--vert);width:200px;">Critère</th><th style="background:var(--vert);">Réponse attendue</th><th style="background:var(--vert);width:120px;">Points</th></tr></thead>
+              <tbody id="q1-table"></tbody>
+            </table>
+          </div>
+          <div class="rempeda"><strong>💡 Remarque pédagogique</strong>Accepter les variantes proches. Pour la surface de vente, tolérer une fourchette (ex. ± 30%). Pour la cible clientèle, accepter toute réponse argumentée et cohérente avec l'enseigne.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question">
+          <div class="question-top">
+            <div class="q-num" style="background:var(--accent);">2</div>
+            <div class="q-text">Définissez le type d'UC de <span class="dyn-e" id="q2-enseigne"></span> et justifiez.</div>
+            <div class="q-pts">2 pts</div>
+          </div>
+          <div class="corrige-box">
+            <div class="corrige-box-header">✅ Réponse attendue</div>
+            <div id="q2-corrige"></div>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question">
+          <div class="question-top">
+            <div class="q-num" style="background:var(--accent);">3</div>
+            <div class="q-text">Zone de chalandise de <span class="dyn-e" id="q3-enseigne"></span>.</div>
+            <div class="q-pts">1 pt</div>
+          </div>
+          <div class="corrige-box">
+            <div class="corrige-box-header">✅ Réponse attendue</div>
+            <div id="q3-corrige"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════
+         PARTIE 2 — ANALYSER (7 pts)
+    ═══════════════════════════════ -->
+    <div class="partie">
+      <div class="partie-header" style="background:#f0fdf4;">
+        <div class="partie-header-left">
+          <div class="partie-num" style="background:var(--teal);">2</div>
+          <div><div class="partie-title">Analyser l'unité commerciale</div><div class="partie-subtitle">Offre, facteurs d'ambiance et stratégie</div></div>
+        </div>
+        <div class="partie-pts">7 points</div>
+      </div>
+      <div class="partie-body">
+
+        <!-- Q4 -->
+        <div class="question">
+          <div class="question-top">
+            <div class="q-num" style="background:var(--teal);">4</div>
+            <div class="q-text">Offre commerciale de <span class="dyn-e" id="q4-enseigne"></span>.</div>
+            <div class="q-pts">2 pts — 0,5 pt / ligne</div>
+          </div>
+          <div class="corrige-box">
+            <div class="corrige-box-header">✅ Réponses attendues</div>
+            <table class="ctable">
+              <thead><tr><th style="background:var(--teal);width:200px;">Élément</th><th style="background:var(--teal);">Réponse attendue</th></tr></thead>
+              <tbody id="q4-table"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="question">
+          <div class="question-top">
+            <div class="q-num" style="background:var(--teal);">5</div>
+            <div class="q-text">Facteurs d'ambiance de <span class="dyn-e" id="q5-enseigne"></span>.</div>
+            <div class="q-pts">2 pts — 0,5 pt / facteur</div>
+          </div>
+          <div class="corrige-box">
+            <div class="corrige-box-header">✅ Réponses attendues</div>
+            <table class="ctable">
+              <thead><tr><th style="background:var(--teal);width:150px;">Facteur</th><th style="background:var(--teal);">Observation attendue</th><th style="background:var(--teal);">Effet sur le client</th></tr></thead>
+              <tbody id="q5-table"></tbody>
+            </table>
+          </div>
+          <div class="rempeda"><strong>💡 Remarque pédagogique</strong>Pour un pure player (Amazon, Cdiscount) : analyser l'ergonomie du site, les couleurs, la rapidité, les recommandations personnalisées. Accepter toute observation pertinente et justifiée sur l'environnement numérique.</div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="question">
+          <div class="question-top">
+            <div class="q-num" style="background:var(--teal);">6</div>
+            <div class="q-text">Vrai / Faux — <span class="dyn-e" id="q6-enseigne"></span>.</div>
+            <div class="q-pts">1,5 pt — 0,5 pt / bonne réponse</div>
+          </div>
+          <div class="corrige-box">
+            <div class="corrige-box-header">✅ Réponses attendues</div>
+            <div class="vf-corrige" id="q6-vf"></div>
+          </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="question">
+          <div class="question-top">
+            <div class="q-num" style="background:var(--teal);">7</div>
+            <div class="q-text">Fidélisation de <span class="dyn-e" id="q7-enseigne"></span>.</div>
+            <div class="q-pts">1,5 pt</div>
+          </div>
+          <div class="corrige-box">
+            <div class="corrige-box-header">✅ Réponse attendue</div>
+            <div id="q7-corrige"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════
+         PARTIE 3 — NUMÉRIQUE (4 pts)
+    ═══════════════════════════════ -->
+    <div class="partie">
+      <div class="partie-header" style="background:#faf5ff;">
+        <div class="partie-header-left">
+          <div class="partie-num" style="background:#7c3aed;">3</div>
+          <div><div class="partie-title">Dimension numérique et phygitale</div><div class="partie-subtitle">Outils digitaux et comparaison</div></div>
+        </div>
+        <div class="partie-pts">4 points</div>
+      </div>
+      <div class="partie-body">
+
+        <!-- Q8 -->
+        <div class="question">
+          <div class="question-top">
+            <div class="q-num" style="background:#7c3aed;">8</div>
+            <div class="q-text"><span class="dyn-e" id="q8-enseigne"></span> est-elle phygitale ?</div>
+            <div class="q-pts">2 pts</div>
+          </div>
+          <div class="corrige-box">
+            <div class="corrige-box-header">✅ Réponse attendue</div>
+            <div id="q8-corrige"></div>
+          </div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="question">
+          <div class="question-top">
+            <div class="q-num" style="background:#7c3aed;">9</div>
+            <div class="q-text">Comparez <span class="dyn-e" id="q9-enseigne"></span> avec un autre type d'UC.</div>
+            <div class="q-pts">2 pts — 0,4 pt / ligne</div>
+          </div>
+          <div class="corrige-box">
+            <div class="corrige-box-header">✅ Exemple de tableau attendu</div>
+            <table class="ctable">
+              <thead><tr><th style="background:#7c3aed;width:150px;">Critère</th><th style="background:#7c3aed;"><span id="q9-col1"></span></th><th style="background:#7c3aed;"><span id="q9-col2"></span></th></tr></thead>
+              <tbody id="q9-table"></tbody>
+            </table>
+          </div>
+          <div class="rempeda"><strong>💡 Remarque pédagogique</strong>Le choix de l'UC comparative est libre. Valorisez la cohérence du raisonnement : les éléments de comparaison doivent être correctement identifiés même si l'UC choisie diffère. Accepter toute UC pertinente (physique, virtuelle ou phygitale) avec comparaison justifiée.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════
+         PARTIE 4 — SYNTHÈSE (3 pts)
+    ═══════════════════════════════ -->
+    <div class="partie">
+      <div class="partie-header" style="background:#fff7ed;">
+        <div class="partie-header-left">
+          <div class="partie-num" style="background:var(--gold);">4</div>
+          <div><div class="partie-title">Synthèse et avis argumenté</div><div class="partie-subtitle">Bilan critique</div></div>
+        </div>
+        <div class="partie-pts">3 points</div>
+      </div>
+      <div class="partie-body">
+
+        <!-- Q10 -->
+        <div class="question">
+          <div class="question-top">
+            <div class="q-num" style="background:var(--gold);">10</div>
+            <div class="q-text">Points forts et points faibles de <span class="dyn-e" id="q10-enseigne"></span>.</div>
+            <div class="q-pts">1,5 pt</div>
+          </div>
+          <div class="corrige-box">
+            <div class="corrige-box-header">✅ Exemples de réponses attendues</div>
+            <div id="q10-corrige"></div>
+          </div>
+          <div class="rempeda"><strong>💡 Remarque pédagogique</strong>Question ouverte : accepter toute réponse pertinente et argumentée. Les exemples ci-dessus sont indicatifs. Valorisez la capacité à justifier. Pénaliser les réponses trop vagues ou sans lien avec l'enseigne.</div>
+        </div>
+
+        <!-- Q11 -->
+        <div class="question">
+          <div class="question-top">
+            <div class="q-num" style="background:var(--gold);">11</div>
+            <div class="q-text">Proposition d'amélioration pour <span class="dyn-e" id="q11-enseigne"></span>.</div>
+            <div class="q-pts">1,5 pt</div>
+          </div>
+          <div class="corrige-box">
+            <div class="corrige-box-header">✅ Exemples de propositions acceptables</div>
+            <div id="q11-corrige"></div>
+          </div>
+          <div class="rempeda"><strong>💡 Barème détaillé Q11 :</strong> 0,5 pt — Proposition concrète et réaliste &nbsp;|&nbsp; 0,5 pt — Lien direct avec les caractéristiques de l'enseigne &nbsp;|&nbsp; 0,5 pt — Argumentation développée (3-4 lignes minimum). Pénaliser les propositions hors-sujet ou non justifiées.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RÉCAPITULATIF BARÈME -->
+    <div class="bareme-recap">
+      <div class="bareme-recap-header">
+        <span style="font-size:20px;">🏆</span>
+        <h3>Récapitulatif du barème — 20 points</h3>
+      </div>
+      <div class="brec-body">
+        <table class="brec-table">
+          <thead><tr><th>Q</th><th>Intitulé</th><th style="width:80px;text-align:center;">Pts</th><th>Critères d'attribution</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:800;color:var(--accent);">Q1</td><td>Carte d'identité de l'enseigne</td><td class="pts-col">3</td><td class="crit-col">0,5 pt par critère correct (6 critères)</td></tr>
+            <tr><td style="font-weight:800;color:var(--accent);">Q2</td><td>Définition + justification du type d'UC</td><td class="pts-col">2</td><td class="crit-col">1 pt définition exacte + 1 pt justification pertinente</td></tr>
+            <tr><td style="font-weight:800;color:var(--accent);">Q3</td><td>Zone de chalandise</td><td class="pts-col">1</td><td class="crit-col">0,5 pt choix correct + 0,5 pt justification</td></tr>
+            <tr><td style="font-weight:800;color:var(--teal);">Q4</td><td>Offre commerciale (tableau)</td><td class="pts-col">2</td><td class="crit-col">0,5 pt par ligne complétée correctement (4 lignes)</td></tr>
+            <tr><td style="font-weight:800;color:var(--teal);">Q5</td><td>Facteurs d'ambiance (tableau)</td><td class="pts-col">2</td><td class="crit-col">0,5 pt par facteur observé ET analysé (4 facteurs)</td></tr>
+            <tr><td style="font-weight:800;color:var(--teal);">Q6</td><td>Vrai / Faux</td><td class="pts-col">1,5</td><td class="crit-col">0,5 pt par bonne réponse justifiée (3 affirmations)</td></tr>
+            <tr><td style="font-weight:800;color:var(--teal);">Q7</td><td>Stratégie de fidélisation</td><td class="pts-col">1,5</td><td class="crit-col">0,5 pt identification + 0,5 pt description + 0,5 pt analyse</td></tr>
+            <tr><td style="font-weight:800;color:#7c3aed;">Q8</td><td>Qualification phygitale</td><td class="pts-col">2</td><td class="crit-col">0,5 pt choix + 0,5 pt ex.1 + 0,5 pt ex.2 + 0,5 pt impact client</td></tr>
+            <tr><td style="font-weight:800;color:#7c3aed;">Q9</td><td>Tableau comparatif</td><td class="pts-col">2</td><td class="crit-col">0,4 pt par ligne correcte (5 lignes)</td></tr>
+            <tr><td style="font-weight:800;color:var(--gold);">Q10</td><td>Points forts / faibles</td><td class="pts-col">1,5</td><td class="crit-col">Jusqu'à 0,5 pt par réponse pertinente et justifiée (max 3)</td></tr>
+            <tr><td style="font-weight:800;color:var(--gold);">Q11</td><td>Proposition d'amélioration</td><td class="pts-col">1,5</td><td class="crit-col">0,5 pt proposition + 0,5 pt lien enseigne + 0,5 pt argumentation</td></tr>
+          </tbody>
+        </table>
+        <div class="brec-total">
+          <div class="bt-label">Total général</div>
+          <div class="bt-note">20 / 20</div>
+        </div>
+        <div style="margin-top:14px;border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+          <div style="background:var(--paper-warm);padding:8px 14px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--ink-muted);border-bottom:1px solid var(--border);">Grille de mentions</div>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);font-size:11px;text-align:center;">
+            <div style="padding:8px;border-right:1px solid var(--border);"><div style="font-weight:700;color:var(--coral);">Insuffisant</div><div style="color:var(--ink-muted);">0 – 7,5</div></div>
+            <div style="padding:8px;border-right:1px solid var(--border);"><div style="font-weight:700;color:var(--gold);">Passable</div><div style="color:var(--ink-muted);">8 – 9,5</div></div>
+            <div style="padding:8px;border-right:1px solid var(--border);"><div style="font-weight:700;color:var(--teal);">Assez bien</div><div style="color:var(--ink-muted);">10 – 11,5</div></div>
+            <div style="padding:8px;border-right:1px solid var(--border);"><div style="font-weight:700;color:var(--accent);">Bien</div><div style="color:var(--ink-muted);">12 – 15,5</div></div>
+            <div style="padding:8px;"><div style="font-weight:700;color:#7c3aed;">Très bien</div><div style="color:var(--ink-muted);">16 – 20</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;font-size:11px;color:var(--rouge);font-style:italic;font-weight:700;margin-top:10px;">
+      🔒 CORRIGÉ RÉSERVÉ À L'ENSEIGNANT(E) — NE PAS DISTRIBUER AUX ÉLÈVES
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('cfg-date').valueAsDate = new Date();
+
+// ════════════════════════════════════════════════
+// BASE DE DONNÉES CORRIGÉS PAR ENSEIGNE
+// ════════════════════════════════════════════════
+const DATA = {
+
+  Franprix: {
+    type: 'UC physique — Supermarché',
+    groupe: 'Groupe Casino',
+    zone: 'Locale (moins de 2 km)',
+    surface: 'Entre 400 et 2 000 m² selon le magasin',
+    cible: 'Citadins, actifs urbains, clients de proximité',
+    q2def: 'Franprix est une UC physique de type supermarché : le client doit se déplacer dans un lieu géographique précis pour effectuer ses achats.',
+    q2just: 'On peut toucher et choisir les produits directement en rayon. Le magasin est situé dans une rue commerçante ou en pied d\'immeuble.',
+    q3rep: 'Locale', q3just: 'Franprix est un commerce de proximité : sa zone d\'attractivité couvre généralement un rayon de 500 m à 2 km. Les clients viennent à pied ou en transport en commun.',
+    q4: [
+      ['Familles de produits', 'Alimentation générale (épicerie, frais, surgelés, boissons, hygiène, entretien)'],
+      ['Niveau de gamme', 'Entrée et milieu de gamme principalement — quelques produits haut de gamme (traiteur)'],
+      ['Marques présentes', 'Marques nationales (Danone, Nestlé…) + Marque De Distributeur (MDD) Franprix'],
+      ['Services associés', 'Carte fidélité Franprix, livraison à domicile (Franprix.fr), click & collect dans certains magasins']
+    ],
+    q5: [
+      ['Visuel / éclairage', 'Éclairage LED chaud sur les rayons frais, couleurs rouge et blanc de l\'enseigne', 'Attire l\'attention, met en valeur les produits frais'],
+      ['Sonore / musical', 'Musique de fond douce (variété française, pop), volume modéré', 'Ralentit le rythme de déplacement, favorise le temps en magasin'],
+      ['Olfactif', 'Odeur de pain chaud en boulangerie, produits frais au rayon traiteur', 'Stimule l\'appétit, crée une ambiance accueillante'],
+      ['Spatial / agencement', 'Allées étroites (format urbain), produits du quotidien au fond du magasin', 'Oblige à traverser tout le magasin, expose à un maximum de produits']
+    ],
+    q6: [
+      {aff:'L\'enseigne dispose d\'au moins un magasin physique.', rep:true, expl:'Franprix possède plus de 900 magasins physiques en France, principalement en Île-de-France.'},
+      {aff:'La zone de chalandise est limitée à un périmètre géographique précis.', rep:true, expl:'En tant que commerce de proximité, Franprix attire sa clientèle dans un rayon de 500 m à 2 km autour du magasin.'},
+      {aff:'L\'enseigne propose une vente en ligne (site e-commerce ou application).', rep:true, expl:'Franprix propose la livraison à domicile via son site franprix.fr et est référencé sur des plateformes de livraison (Gorillas, Deliveroo).'}
+    ],
+    q7: 'Programme de fidélité : carte Franprix (ou application mobile Franprix).\nFonctionnement : accumulation de points à chaque achat, réduction automatique appliquée en caisse ou coupons de réduction personnalisés.\nEfficacité : encourage la récurrence des visites, fidélise les clients de proximité. Permet de collecter des données d\'achat pour personnaliser les offres.',
+    q8rep: 'Oui — UC phygitale',
+    q8outils: ['Scan & Go (scan autonome avec smartphone, paiement sans caisse)', 'Application mobile Franprix (commande, carte fidélité, promotions)', 'Livraison à domicile depuis le site ou via des partenaires (Deliveroo)'],
+    q8impact: 'Réduit les files d\'attente, améliore l\'expérience client, permet d\'attirer une clientèle habituée au numérique.',
+    q9col2: 'Cdiscount (UC virtuelle)',
+    q9: [
+      ['Type d\'UC', 'UC physique — Supermarché', 'UC virtuelle — Pure player'],
+      ['Zone de chalandise', 'Locale (rayon de 2 km)', 'Nationale (France entière)'],
+      ['Accès client', 'Déplacement physique en magasin', 'Connexion internet (PC, mobile)'],
+      ['Facteurs d\'ambiance', 'Musique, éclairage, odeurs, agencement', 'Design du site, couleurs, ergonomie, rapidité'],
+      ['Avantage principal', 'Contact immédiat avec le produit, conseil humain', 'Disponible 24h/24, offre très large, livraison à domicile']
+    ],
+    q10forts: ['Large gamme de produits alimentaires adaptée aux besoins quotidiens', 'Implantation en cœur de ville : très accessible à pied', 'Services numériques (app, livraison) qui élargissent l\'offre'],
+    q10faibles: ['Surface réduite = offre moins large que les hypermarchés', 'Horaires d\'ouverture limités par rapport à une UC virtuelle (24h/24)'],
+    q11: ['Développer davantage le dark store pour assurer des livraisons en moins d\'une heure dans les zones denses (Paris)', 'Renforcer l\'expérience phygitale : bornes interactives, QR codes en rayon donnant accès à des fiches recettes', 'Proposer un service de click & collect généralisé à tous les magasins']
+  },
+
+  Casino: {
+    type: 'UC physique — Supermarché / Hypermarché (selon le format)',
+    groupe: 'Groupe Casino',
+    zone: 'Locale à régionale selon le format',
+    surface: 'Entre 800 m² (supermarché) et + de 5 000 m² (hypermarché)',
+    cible: 'Familles, actifs, tous profils selon localisation',
+    q2def: 'Casino est une UC physique (supermarché ou hypermarché selon le format) : le client doit se déplacer dans un lieu géographique précis pour effectuer ses achats.',
+    q2just: 'Les produits sont directement accessibles en rayon, le client peut les voir et les toucher avant d\'acheter.',
+    q3rep: 'Locale à régionale', q3just: 'La zone de chalandise dépend du format. Un supermarché Casino attire dans un rayon de 2 à 5 km. Un hypermarché Casino peut attirer sur 10 à 20 km.',
+    q4: [
+      ['Familles de produits', 'Alimentation complète + non-alimentaire (selon format) : textile, électroménager, jardin…'],
+      ['Niveau de gamme', 'Entrée, milieu et haut de gamme — gamme Casino Bio, Casino Délices (haut)'],
+      ['Marques présentes', 'Toutes marques nationales + MDD Casino (Casino, Casino Bio, Casino Délices)'],
+      ['Services associés', 'Carte de fidélité Casino Max, drive Casino, livraison, station-service (hypermarchés)']
+    ],
+    q5: [
+      ['Visuel / éclairage', 'Éclairage puissant, têtes de gondole colorées, signalétique promotionnelle (jaune)', 'Attire l\'œil vers les promotions, oriente le client dans le magasin'],
+      ['Sonore / musical', 'Musique de fond modérée, annonces promotionnelles au micro', 'Crée une ambiance dynamique, informe sur les offres'],
+      ['Olfactif', 'Boulangerie artisanale, rayon traiteur chaud, café', 'Stimule l\'appétit, fidélise par le plaisir sensoriel'],
+      ['Spatial / agencement', 'Produits de première nécessité au fond du magasin, allées larges (hypermarché)', 'Maximise l\'exposition aux produits, facilite la circulation des chariots']
+    ],
+    q6: [
+      {aff:'L\'enseigne dispose d\'au moins un magasin physique.', rep:true, expl:'Casino exploite des centaines de supermarchés et hypermarchés en France.'},
+      {aff:'La zone de chalandise est limitée à un périmètre géographique précis.', rep:true, expl:'Chaque point de vente Casino attire sa clientèle dans un rayon kilométrique défini.'},
+      {aff:'L\'enseigne propose une vente en ligne (site e-commerce ou application).', rep:true, expl:'Casino propose un drive, la livraison à domicile et une application Casino Max.'}
+    ],
+    q7: 'Programme Casino Max (carte fidélité et application mobile).\nFonctionnement : accumulation de points, coupons personnalisés, accès aux offres exclusives, Scan & Go.\nEfficacité : fidélise par les avantages financiers (réductions), collecte des données clients pour personnaliser les promotions.',
+    q8rep: 'Oui — UC phygitale',
+    q8outils: ['Scan & Go : scanner les articles avec le smartphone et payer sans passer en caisse', 'Application Casino Max : carte fidélité, coupons, géolocalisation des offres', 'Bornes interactives en magasin, digital signage (écrans promotionnels)'],
+    q8impact: 'Fluidifie le parcours client, réduit les files d\'attente, personnalise l\'expérience d\'achat.',
+    q9col2: 'Cdiscount (UC virtuelle)',
+    q9: [
+      ['Type d\'UC', 'UC physique (super/hypermarché)', 'UC virtuelle — Pure player'],
+      ['Zone de chalandise', 'Locale à régionale (5 à 20 km)', 'Nationale (France entière)'],
+      ['Accès client', 'Déplacement en magasin', 'Connexion internet 24h/24'],
+      ['Facteurs d\'ambiance', 'Lumière, musique, odeurs, agencement', 'Design web, couleurs, ergonomie, rapidité'],
+      ['Avantage principal', 'Contact produit, conseil, achat immédiat', 'Large offre, livraison, disponibilité permanente']
+    ],
+    q10forts: ['Très large gamme de produits (alimentaire + non-alimentaire pour les hypermarchés)', 'Forte intégration phygitale (Scan & Go, Casino Max)', 'Appartenance à un grand groupe offrant des économies d\'échelle'],
+    q10faibles: ['Horaires d\'ouverture limitées par rapport aux pure players', 'Concurrence forte des enseignes discount (Lidl, Aldi) sur les prix'],
+    q11: ['Développer le drive piéton pour les centres-villes afin de capter une clientèle urbaine sans voiture', 'Renforcer l\'expérience phygitale : miroirs connectés, bornes de recommandation personnalisées', 'Proposer plus de produits locaux et bio pour répondre aux nouvelles attentes des consommateurs']
+  },
+
+  Cdiscount: {
+    type: 'UC virtuelle — Pure player',
+    groupe: 'Groupe Casino',
+    zone: 'Nationale (France entière)',
+    surface: 'Non applicable (vente 100% en ligne)',
+    cible: 'Large public : particuliers cherchant prix bas et large choix (high-tech, électroménager, mode, alimentation)',
+    q2def: 'Cdiscount est une UC virtuelle de type pure player : l\'enseigne vend exclusivement sur internet, sans aucun magasin physique accessible au public.',
+    q2just: 'Le client accède à l\'offre uniquement via le site cdiscount.com ou l\'application mobile, sans se déplacer. La livraison se fait à domicile ou en point relais.',
+    q3rep: 'Nationale', q3just: 'Cdiscount est accessible depuis toute la France (et même depuis l\'étranger). Il n\'y a pas de zone géographique limitée : la livraison couvre l\'ensemble du territoire national.',
+    q4: [
+      ['Familles de produits', 'High-tech, électroménager, mode, alimentation, jardin, puériculture, sport… + de 100 millions de références'],
+      ['Niveau de gamme', 'Tous niveaux : entrée, milieu, haut de gamme selon les vendeurs (marketplace)'],
+      ['Marques présentes', 'Toutes marques nationales + vendeurs tiers via la marketplace (+ de 12 000 vendeurs)'],
+      ['Services associés', 'Cdiscount à volonté (abonnement livraison), click & collect, consignes, marketplace, crédit']
+    ],
+    q5: [
+      ['Visuel / éclairage', 'Site coloré (rouge/blanc), bannières promotionnelles, photos HD des produits', 'Attire l\'attention sur les promotions, rassure sur la qualité du produit'],
+      ['Sonore / musical', 'Aucune musique (site silencieux)', 'Pas de stimulation sonore : l\'achat est rationnel, orienté prix et comparaison'],
+      ['Olfactif', 'Non applicable (site internet)', 'Absent — compensé par les photos et fiches produits détaillées'],
+      ['Spatial / agencement', 'Navigation par catégories, moteur de recherche, suggestions personnalisées (IA)', 'Facilite la découverte de produits, incite à l\'achat complémentaire (cross-selling)']
+    ],
+    q6: [
+      {aff:'L\'enseigne dispose d\'au moins un magasin physique.', rep:false, expl:'Cdiscount est un pure player : il ne possède aucun magasin physique ouvert au public. Ses entrepôts (dark stores) ne sont pas accessibles aux clients.'},
+      {aff:'La zone de chalandise est limitée à un périmètre géographique précis.', rep:false, expl:'La zone de chalandise de Cdiscount est nationale (France entière) voire internationale. Il n\'y a aucune limitation géographique.'},
+      {aff:'L\'enseigne propose une vente en ligne (site e-commerce ou application).', rep:true, expl:'Cdiscount vend exclusivement en ligne via cdiscount.com et son application mobile. C\'est son unique canal de vente.'}
+    ],
+    q7: 'Programme Cdiscount à volonté (CDAV) : abonnement payant annuel (environ 29€/an) donnant droit à la livraison gratuite illimitée, à des offres exclusives et à des remises sur certains produits.\nEfficacité : très efficace pour fidéliser les clients réguliers (modèle similaire à Amazon Prime). Encourage les achats fréquents pour amortir l\'abonnement.',
+    q8rep: 'Non applicable — Pure player',
+    q8outils: ['Site e-commerce optimisé (IA de recommandation personnalisée)', 'Application mobile Cdiscount avec notifications push et scan de code-barres', 'Marketplace intégrée permettant à des vendeurs tiers de proposer leurs produits'],
+    q8impact: 'Personnalise l\'expérience d\'achat, facilite la navigation, fidélise par les abonnements.',
+    q9col2: 'Franprix (UC physique)',
+    q9: [
+      ['Type d\'UC', 'UC virtuelle — Pure player', 'UC physique — Supermarché'],
+      ['Zone de chalandise', 'Nationale (aucune limite géographique)', 'Locale (rayon de 2 km)'],
+      ['Accès client', 'Connexion internet 24h/24, 7j/7', 'Déplacement physique en magasin'],
+      ['Facteurs d\'ambiance', 'Design web, couleurs, ergonomie, IA de reco', 'Lumière, musique, odeurs, agencement'],
+      ['Avantage principal', 'Offre immense, prix compétitifs, livraison rapide', 'Contact immédiat avec le produit, conseil humain']
+    ],
+    q10forts: ['Offre extrêmement large (+ 100 millions de références)', 'Disponible 24h/24, 7j/7 depuis n\'importe où', 'Prix très compétitifs grâce à la marketplace'],
+    q10faibles: ['Impossible de toucher ou essayer le produit avant achat', 'Délais de livraison (même si express, pas instantané)', 'Retours parfois complexes et coûteux'],
+    q11: ['Développer des points de retrait physiques (consignes) pour faciliter la récupération des colis et réduire les livraisons manquées', 'Améliorer le service client (chatbot + conseiller humain) pour compenser l\'absence de conseil en magasin', 'Lancer des tests de réalité augmentée pour que les clients visualisent les produits chez eux avant achat']
+  },
+
+  Carrefour: {
+    type: 'UC physique — Hypermarché / Supermarché (selon le format)',
+    groupe: 'Groupe Carrefour',
+    zone: 'Locale à régionale selon le format',
+    surface: 'De 400 m² (Market) à + de 10 000 m² (Hypermarché)',
+    cible: 'Familles, tous profils. Clientèle large et diversifiée',
+    q2def: 'Carrefour est une UC physique (supermarché ou hypermarché selon le format) : le client doit se déplacer dans un lieu géographique précis pour effectuer ses achats.',
+    q2just: 'On peut voir, toucher et choisir les produits directement en rayon. Les enseignes Carrefour sont implantées dans des zones commerciales ou des centres-villes.',
+    q3rep: 'Locale à régionale', q3just: 'Un Carrefour Market attire sur 3 à 5 km, un Carrefour Hypermarché peut attirer des clients sur 15 à 25 km. La zone dépend du format et de la concurrence locale.',
+    q4: [
+      ['Familles de produits', 'Alimentation + textile + électronique + jardin + auto (hypermarchés) — Alimentaire uniquement (Market, Express)'],
+      ['Niveau de gamme', 'Entrée, milieu et haut de gamme — gammes Carrefour Bio, Carrefour Sélection (haut)'],
+      ['Marques présentes', 'Marques nationales + MDD Carrefour (Carrefour, Carrefour Bio, Carrefour Sélection)'],
+      ['Services associés', 'Carte fidélité Carrefour, drive, livraison, click & collect, location de voiture, voyage, assurances']
+    ],
+    q5: [
+      ['Visuel / éclairage', 'Éclairage puissant, couleurs bleu et rouge de l\'enseigne, têtes de gondole attractives', 'Guide le client, met en valeur les promotions'],
+      ['Sonore / musical', 'Musique de fond douce, annonces micro ponctuelles', 'Ambiance neutre qui favorise la concentration sur les achats'],
+      ['Olfactif', 'Boulangerie artisanale, rayon poissonnerie, café', 'Stimule l\'appétit, crée une ambiance de marché'],
+      ['Spatial / agencement', 'Alimentaire au fond (hypermarché), têtes de gondole promotionnelles aux extrémités des allées', 'Maximise le temps passé en magasin, augmente les achats impulsifs']
+    ],
+    q6: [
+      {aff:'L\'enseigne dispose d\'au moins un magasin physique.', rep:true, expl:'Carrefour possède plus de 5 000 magasins en France sous différents formats (Hypermarché, Market, Express, Contact).'},
+      {aff:'La zone de chalandise est limitée à un périmètre géographique précis.', rep:true, expl:'Chaque point de vente Carrefour attire sa clientèle dans un rayon défini selon son format et sa localisation.'},
+      {aff:'L\'enseigne propose une vente en ligne (site e-commerce ou application).', rep:true, expl:'Carrefour propose un site e-commerce, un drive, la livraison à domicile et une application mobile avec carte fidélité.'}
+    ],
+    q7: 'Programme de fidélité Carrefour (carte et application) : cumul de points transformés en coupons de réduction, offres personnalisées, avantages partenaires.\nEfficacité : très répandu (millions de porteurs). Permet de fidéliser par les avantages financiers et de collecter des données clients pour personnaliser les offres.',
+    q8rep: 'Oui — UC phygitale',
+    q8outils: ['Application Carrefour : carte fidélité, coupons, géolocalisation des promos en magasin', 'Bornes de scan autonome dans certains hypermarchés', 'Drive Carrefour : commande en ligne, retrait en voiture'],
+    q8impact: 'Facilite les achats, réduit les temps d\'attente, personnalise les offres selon le profil d\'achat.',
+    q9col2: 'Amazon (UC virtuelle)',
+    q9: [
+      ['Type d\'UC', 'UC physique (hypermarché)', 'UC virtuelle — Pure player'],
+      ['Zone de chalandise', 'Régionale (jusqu\'à 25 km)', 'Internationale'],
+      ['Accès client', 'Déplacement en magasin', 'Connexion internet 24h/24'],
+      ['Facteurs d\'ambiance', 'Lumière, musique, odeurs, agencement', 'Design web, recommandations IA, ergonomie'],
+      ['Avantage principal', 'Contact produit, achat immédiat, rayon frais', 'Offre illimitée, livraison rapide, prix compétitifs']
+    ],
+    q10forts: ['Offre très large (alimentaire + non-alimentaire pour les hypermarchés)', 'Réseau dense (présence dans toutes les régions France)', 'Forte intégration numérique (drive, appli, click & collect)'],
+    q10faibles: ['Concurrence prix très forte (Lidl, Aldi, Leclerc)', 'Image parfois perçue comme moins qualitative que Leclerc ou Intermarché'],
+    q11: ['Accentuer la transition écologique : plus de produits vrac, moins d\'emballages plastiques pour répondre aux attentes des consommateurs', 'Développer les magasins autonomes (cashierless) pour fluidifier le passage en caisse', 'Renforcer l\'offre locale et circuit court pour se différencier des pure players']
+  },
+
+  Leclerc: {
+    type: 'UC physique — Hypermarché / Drive',
+    groupe: 'Groupement E.Leclerc (groupement de commerçants indépendants)',
+    zone: 'Régionale (10 à 25 km selon implantation)',
+    surface: 'Entre 2 500 m² et + de 15 000 m²',
+    cible: 'Familles à la recherche de prix bas, large public, clientèle rurale et péri-urbaine',
+    q2def: 'Leclerc est une UC physique de type hypermarché : le client doit se rendre dans un lieu géographique précis pour acheter, généralement en voiture depuis une zone commerciale périphérique.',
+    q2just: 'Les magasins Leclerc sont implantés en périphérie des villes, accessibles en voiture. On peut voir et toucher les produits directement en rayon.',
+    q3rep: 'Régionale', q3just: 'Les hypermarchés Leclerc, situés en périphérie, attirent des clients sur 10 à 25 km. La zone de chalandise est plus large que pour un supermarché de proximité.',
+    q4: [
+      ['Familles de produits', 'Alimentation complète + carburant + parapharmacie + bijouterie + voyage + électronique'],
+      ['Niveau de gamme', 'Entrée et milieu de gamme. Positionnement "prix bas" comme axe stratégique principal'],
+      ['Marques présentes', 'Marques nationales + MDD Marque Repère (Leclerc) + produit Eco+ (entrée de gamme)'],
+      ['Services associés', 'Drive Leclerc, carte fidélité, station-service, parapharmacie, billetterie, voyages, assurances']
+    ],
+    q5: [
+      ['Visuel / éclairage', 'Éclairage très lumineux, signalétique prix omniprésente (rouge/jaune), têtes de gondole promotionnelles', 'Met en avant les prix bas, crée une perception de bonne affaire'],
+      ['Sonore / musical', 'Musique de fond peu intrusive, annonces micro sur les promotions', 'Ambiance neutre axée sur l\'efficacité de l\'achat'],
+      ['Olfactif', 'Boulangerie, poissonnerie, fromagerie à la coupe', 'Ambiance marché, stimule les achats impulsifs'],
+      ['Spatial / agencement', 'Surface très grande, allées larges pour les chariots, têtes de gondole attractives', 'Permet de passer beaucoup de temps, expose à un maximum de promotions']
+    ],
+    q6: [
+      {aff:'L\'enseigne dispose d\'au moins un magasin physique.', rep:true, expl:'Le réseau Leclerc compte plus de 700 hypermarchés en France.'},
+      {aff:'La zone de chalandise est limitée à un périmètre géographique précis.', rep:true, expl:'Les hypermarchés Leclerc attirent sur 10 à 25 km. Les clients viennent principalement en voiture depuis les zones péri-urbaines.'},
+      {aff:'L\'enseigne propose une vente en ligne (site e-commerce ou application).', rep:true, expl:'Leclerc propose Drive Leclerc (retrait en voiture), une application et certains produits en livraison à domicile.'}
+    ],
+    q7: 'Carte fidélité Leclerc : accumulation de points sur les achats, carburant inclus. Réductions directes en caisse.\nEfficacité : très efficace grâce à l\'avantage sur le carburant (différenciation forte). Fidélise par les économies réelles réalisées semaine après semaine.',
+    q8rep: 'Oui — UC phygitale',
+    q8outils: ['Drive Leclerc : commander en ligne, récupérer en voiture sans entrer en magasin', 'Application Leclerc : promotions géolocalisées, carte fidélité, liste de courses', 'Bornes de scan autonome dans certains magasins'],
+    q8impact: 'Fluidifie le parcours d\'achat, réduit le temps passé en magasin pour les clients pressés, fidélise par la praticité du drive.',
+    q9col2: 'Cdiscount (UC virtuelle)',
+    q9: [
+      ['Type d\'UC', 'UC physique — Hypermarché', 'UC virtuelle — Pure player'],
+      ['Zone de chalandise', 'Régionale (10 à 25 km)', 'Nationale'],
+      ['Accès client', 'Voiture, déplacement physique', 'Internet 24h/24'],
+      ['Facteurs d\'ambiance', 'Lumière vive, promos visuelles, odeurs', 'Design web, couleurs, ergonomie'],
+      ['Avantage principal', 'Prix bas, large gamme, produits frais', 'Offre illimitée, prix compétitifs, livraison']
+    ],
+    q10forts: ['Leader sur les prix bas en France : très forte image "pas cher"', 'Très large gamme incluant des services non-alimentaires (carburant, parapharmacie, voyages)', 'Drive Leclerc très développé : un des leaders nationaux'],
+    q10faibles: ['Localisé en périphérie : non accessible à pied, nécessite une voiture', 'Image moins premium que certaines enseignes (Carrefour Sélection, Monoprix)'],
+    q11: ['Développer des formats de proximité en centre-ville (Leclerc Express) pour capter les urbains sans voiture', 'Renforcer l\'offre bio et locale pour répondre aux nouvelles attentes de consommation responsable', 'Améliorer l\'expérience phygitale : caisses automatiques, miroirs connectés en rayon non-alimentaire']
+  },
+
+  Lidl: {
+    type: 'UC physique — Hard-discount',
+    groupe: 'Groupe Schwarz (Allemagne)',
+    zone: 'Locale à régionale (3 à 10 km)',
+    surface: 'Entre 1 000 et 2 500 m²',
+    cible: 'Large public à la recherche de prix très bas, familles aux budgets serrés, sensibles aux bonnes affaires',
+    q2def: 'Lidl est une UC physique de type hard-discount : le magasin propose une offre réduite à des prix très bas, avec peu de services, dans un cadre fonctionnel sans fioriture.',
+    q2just: 'On y trouve moins de références qu\'un supermarché classique, les marques nationales sont rares, et la présentation est simple. L\'objectif est de réduire les coûts pour répercuter l\'économie sur le prix.',
+    q3rep: 'Locale à régionale', q3just: 'Les magasins Lidl sont implantés dans les villes et périphéries. Leur zone d\'attraction va de 3 à 10 km selon la densité de population et la concurrence locale.',
+    q4: [
+      ['Familles de produits', 'Alimentation générale (épicerie, frais, surgelés) + produits non-alimentaires rotatifs ("le Bazar de la semaine")'],
+      ['Niveau de gamme', 'Entrée et milieu de gamme. Très peu de marques nationales. Majorité de marques propres Lidl'],
+      ['Marques présentes', 'Marques propres Lidl (Milbona, Exquisa, Linessa…) + quelques marques nationales. Pas de MDD classique'],
+      ['Services associés', 'Application Lidl Plus (carte fidélité, coupons, jeux), vente en ligne limitée, photos de ticket numérique']
+    ],
+    q5: [
+      ['Visuel / éclairage', 'Éclairage LED blanc et puissant, couleurs jaune et rouge de l\'enseigne, présentation sobre en palette/carton', 'Impression de fraîcheur et de propreté, aucune distraction visuelle'],
+      ['Sonore / musical', 'Musique de fond discrète ou absente', 'Achat rapide et efficace : pas de stimulation à flâner'],
+      ['Olfactif', 'Boulangerie artisanale (cuisson en magasin), odeur de pain chaud', 'Forte attraction olfactive à l\'entrée, stimule l\'achat impulsif de boulangerie'],
+      ['Spatial / agencement', 'Présentation sur palettes et cartons d\'origine, allées dégagées, caisse unique en sortie', 'Achat rapide, pas de perte de temps, efficacité maximale du parcours']
+    ],
+    q6: [
+      {aff:'L\'enseigne dispose d\'au moins un magasin physique.', rep:true, expl:'Lidl possède plus de 1 600 magasins physiques en France.'},
+      {aff:'La zone de chalandise est limitée à un périmètre géographique précis.', rep:true, expl:'Chaque magasin Lidl attire sur un rayon de 3 à 10 km. La zone est limitée géographiquement comme tout magasin physique.'},
+      {aff:'L\'enseigne propose une vente en ligne (site e-commerce ou application).', rep:false, expl:'Lidl France ne propose pas de vente en ligne complète. L\'application Lidl Plus est une app de fidélité, pas un site e-commerce de commande de courses.'}
+    ],
+    q7: 'Application Lidl Plus : coupons de réduction hebdomadaires, prix réduits exclusifs, jeu-concours, ticket de caisse numérique.\nEfficacité : très efficace pour fidéliser une clientèle sensible aux prix. Permet de récompenser la régularité des visites et de collecter des données comportementales.',
+    q8rep: 'Oui, partiellement — UC phygitale en développement',
+    q8outils: ['Application Lidl Plus (coupons, fidélité, ticket numérique)', 'Quelques magasins pilotes avec caisses automatiques (self-scan)', 'QR codes sur certains produits pour accéder à des informations complémentaires'],
+    q8impact: 'Simplifie le paiement, réduit les coûts de personnel, attire une clientèle jeune habituée au numérique.',
+    q9col2: 'Carrefour (UC physique supermarché)',
+    q9: [
+      ['Type d\'UC', 'UC physique — Hard-discount', 'UC physique — Supermarché / Hypermarché'],
+      ['Zone de chalandise', 'Locale à régionale (3 à 10 km)', 'Régionale (5 à 25 km)'],
+      ['Accès client', 'Déplacement physique en magasin', 'Déplacement physique en magasin'],
+      ['Facteurs d\'ambiance', 'Sobre, fonctionnel, odeur de boulangerie', 'Riche : musique, éclairage, odeurs, agencement'],
+      ['Avantage principal', 'Prix très bas, efficacité d\'achat', 'Large gamme, services multiples, expérience riche']
+    ],
+    q10forts: ['Prix très bas : leader ou co-leader sur les prix parmi les GMS', 'Boulangerie artisanale en magasin : forte attractivité', 'Gamme non-alimentaire rotative (le Bazar) : effet "chasse au trésor"'],
+    q10faibles: ['Peu de services (pas de rayon charcuterie à la coupe, peu de conseil)', 'Faible intégration numérique par rapport aux concurrents (pas de drive)'],
+    q11: ['Développer un service de drive Lidl pour capter la clientèle qui commande ses courses en ligne', 'Enrichir l\'expérience en magasin avec des bornes d\'information produit (allergènes, origine)', 'Étendre les rayons de produits locaux et bio pour répondre à l\'évolution des comportements de consommation']
+  },
+
+  Amazon: {
+    type: 'UC virtuelle — Pure player (marketplace mondiale)',
+    groupe: 'Amazon.com Inc. (États-Unis)',
+    zone: 'Internationale (mondiale)',
+    surface: 'Non applicable — vente 100% en ligne',
+    cible: 'Très large public : particuliers et professionnels, tous âges, tous pays',
+    q2def: 'Amazon est une UC virtuelle de type pure player : il vend exclusivement sur internet via sa plateforme e-commerce, sans magasin physique accessible au public en France.',
+    q2just: 'Le client commande depuis son ordinateur ou son smartphone depuis n\'importe où dans le monde. Aucun déplacement n\'est nécessaire : la livraison arrive à domicile ou en point relais.',
+    q3rep: 'Internationale', q3just: 'Amazon opère dans des dizaines de pays. Sa zone de chalandise est mondiale : un client peut commander depuis la France, l\'Allemagne ou le Japon. Il n\'y a aucune limite géographique.',
+    q4: [
+      ['Familles de produits', 'Tout : high-tech, mode, alimentation, livres, musique, mobilier, jouets, services numériques (Prime Video, AWS)…'],
+      ['Niveau de gamme', 'Tous niveaux de gamme : de l\'entrée de gamme aux produits de luxe selon les vendeurs'],
+      ['Marques présentes', 'Toutes marques mondiales + marques propres Amazon Basics + millions de vendeurs tiers (marketplace)'],
+      ['Services associés', 'Amazon Prime (livraison, streaming), Alexa, AWS cloud, Amazon Fresh (alimentaire), Kindle, Prime Video']
+    ],
+    q5: [
+      ['Visuel / éclairage', 'Site orange et blanc, design épuré, photos HD, recommandations personnalisées par IA', 'Guide vers les achats complémentaires, crée une impression de pertinence et de personnalisation'],
+      ['Sonore / musical', 'Aucune musique sur le site. Son uniquement via Alexa (assistant vocal)', 'Achat rationnel orienté recherche et comparaison'],
+      ['Olfactif', 'Non applicable (plateforme numérique)', 'Compensé par les avis clients très détaillés (milliers de commentaires)'],
+      ['Spatial / agencement', 'Moteur de recherche puissant, filtres avancés, "les clients ont aussi acheté", page produit très détaillée', 'Maximise le temps passé sur le site, génère des achats impulsifs et complémentaires']
+    ],
+    q6: [
+      {aff:'L\'enseigne dispose d\'au moins un magasin physique.', rep:false, expl:'Amazon n\'a pas de magasins physiques accessibles en France. Ses entrepôts (fulfillment centers) ne sont pas ouverts aux clients. (Amazon Go existe aux USA mais pas en France à grande échelle)'},
+      {aff:'La zone de chalandise est limitée à un périmètre géographique précis.', rep:false, expl:'Amazon opère dans le monde entier. Sa zone de chalandise est internationale, sans aucune limite géographique.'},
+      {aff:'L\'enseigne propose une vente en ligne (site e-commerce ou application).', rep:true, expl:'Amazon vend exclusivement en ligne via amazon.fr et son application mobile. C\'est son unique canal de vente en France.'}
+    ],
+    q7: 'Amazon Prime : abonnement mensuel ou annuel donnant accès à la livraison gratuite illimitée + Prime Video + Prime Music + offres exclusives.\nEfficacité : modèle de fidélisation parmi les plus puissants au monde. Les membres Prime dépensent en moyenne 2 à 3 fois plus que les non-membres. L\'abonnement crée un effet d\'ancrage très fort.',
+    q8rep: 'Non applicable — Pure player (mais tendance phygitale via Amazon Go aux USA)',
+    q8outils: ['Amazon Alexa : assistant vocal permettant de commander des produits à la voix', 'Application Amazon : recommandations IA, scan de code-barres, réalité augmentée (visualiser meubles chez soi)', 'Amazon Fresh : livraison de courses en moins d\'une heure dans certaines villes'],
+    q8impact: 'Personnalise au maximum l\'expérience, supprime les frictions d\'achat, anticipe les besoins du client.',
+    q9col2: 'Franprix (UC physique)',
+    q9: [
+      ['Type d\'UC', 'UC virtuelle — Pure player mondial', 'UC physique — Supermarché'],
+      ['Zone de chalandise', 'Internationale (pas de limite)', 'Locale (rayon de 2 km)'],
+      ['Accès client', 'Internet 24h/24, partout dans le monde', 'Déplacement physique en magasin'],
+      ['Facteurs d\'ambiance', 'Design web, IA de recommandation, Alexa', 'Musique, éclairage, odeurs, agencement physique'],
+      ['Avantage principal', 'Offre illimitée, livraison rapide, prix ultra-compétitifs', 'Achat immédiat, produits frais, conseil humain']
+    ],
+    q10forts: ['Offre quasi-illimitée : tout est disponible sur Amazon', 'Amazon Prime : fidélisation et livraison rapide très efficaces', 'Intelligence artificielle très développée : recommandations ultra-pertinentes'],
+    q10faibles: ['Impossible de voir/toucher le produit avant achat — risque de déception', 'Concurrence déloyale perçue envers les petits commerçants (image négative)', 'Délais de livraison sur certains produits marketplace (vendeurs tiers)'],
+    q11: ['Développer la réalité augmentée pour permettre de "tester" les produits virtuellement avant achat', 'Renforcer les engagements environnementaux (livraison à vélo, emballages recyclables) pour améliorer l\'image', 'Développer Amazon Go en France : magasins sans caisse pour une expérience phygitale innovante']
+  },
+
+  FNAC: {
+    type: 'UC phygitale / UC physique — GSS (Grande Surface Spécialisée)',
+    groupe: 'Groupe Fnac Darty',
+    zone: 'Régionale (10 à 30 km selon implantation)',
+    surface: 'De 1 000 à + de 5 000 m² selon le format',
+    cible: 'Passionnés de culture, de high-tech, étudiants, actifs, amateurs de livres et de musique',
+    q2def: 'La FNAC est une UC physique de type GSS (Grande Surface Spécialisée) dans la culture et le high-tech. Elle est aussi phygitale car elle intègre de nombreux outils numériques à son expérience en magasin.',
+    q2just: 'On peut tester les produits en magasin (écouter de la musique, essayer des appareils) ET acheter en ligne sur fnac.com avec retrait en magasin (click & collect).',
+    q3rep: 'Régionale', q3just: 'Les grands magasins FNAC sont implantés dans les centres-villes des grandes agglomérations. Leur zone d\'attraction peut atteindre 20 à 30 km. Les magasins de proximité (Fnac Connect) ont une zone plus limitée.',
+    q4: [
+      ['Familles de produits', 'High-tech, informatique, téléphonie, photo, son, jeux vidéo, livres, musique, billetterie de spectacles'],
+      ['Niveau de gamme', 'Milieu et haut de gamme principalement — spécialisation dans des produits techniques et culturels de qualité'],
+      ['Marques présentes', 'Apple, Samsung, Sony, Canon, Bose… Grandes marques tech + marque propre Fnac (accessoires)'],
+      ['Services associés', 'Adhésion Fnac, click & collect, billetterie (concerts, théâtre, sport), ateliers, SAV, reprise des anciens appareils']
+    ],
+    q5: [
+      ['Visuel / éclairage', 'Éclairage moderne et design, produits exposés et accessibles à la manipulation, espaces dédiés par univers', 'Invite à tester les produits, crée une expérience sensorielle qui favorise l\'achat'],
+      ['Sonore / musical', 'Diffusion musicale soignée (souvent en lien avec les nouvelles sorties), espaces d\'écoute casques', 'Crée une ambiance culturelle, incite à l\'achat d\'albums ou d\'accessoires audio'],
+      ['Olfactif', 'Odeur caractéristique des livres et papier, café dans certains magasins (espaces librairie)', 'Crée un sentiment de cocooning, incite à flâner dans les rayons'],
+      ['Spatial / agencement', 'Espaces de démonstration (Apple corner, gaming zone, studio photo), caissiers mobiles avec iPad', 'Transforme le magasin en lieu d\'expérience, favorise les achats impulsifs après essai']
+    ],
+    q6: [
+      {aff:'L\'enseigne dispose d\'au moins un magasin physique.', rep:true, expl:'La FNAC possède plus de 200 magasins physiques en France sous différents formats.'},
+      {aff:'La zone de chalandise est limitée à un périmètre géographique précis.', rep:true, expl:'Chaque magasin FNAC attire dans un rayon de 10 à 30 km selon son format et sa localisation en centre-ville ou en ZC.'},
+      {aff:'L\'enseigne propose une vente en ligne (site e-commerce ou application).', rep:true, expl:'Fnac.com est un site e-commerce complet avec marketplace. L\'application propose la carte adhérent numérique et la billetterie.'}
+    ],
+    q7: 'Adhésion FNAC (carte payante) : réductions sur tous les achats (5%), avant-premières, invitations à des événements, avantages billetterie.\nEfficacité : très efficace pour fidéliser les passionnés de culture et de tech. L\'adhésion payante crée un fort sentiment d\'appartenance et un engagement financier qui pousse à rentabiliser la carte.',
+    q8rep: 'Oui — UC phygitale (modèle avancé)',
+    q8outils: ['Fnac.com avec click & collect : commande en ligne, retrait en 1h en magasin', 'Application FNAC : carte adhérent, billetterie, scanner de code-barres pour comparer les prix', 'Tablettes et bornes interactives en magasin pour accéder au catalogue étendu'],
+    q8impact: 'Permet d\'accéder à l\'ensemble du catalogue (plus large qu\'en magasin), fluidifie le parcours client, renforce la fidélité.',
+    q9col2: 'Amazon (UC virtuelle)',
+    q9: [
+      ['Type d\'UC', 'UC phygitale — GSS culture/tech', 'UC virtuelle — Pure player'],
+      ['Zone de chalandise', 'Régionale (10 à 30 km)', 'Internationale'],
+      ['Accès client', 'Physique + numérique (hybride)', 'Internet uniquement, 24h/24'],
+      ['Facteurs d\'ambiance', 'Espaces démo, musique, éclairage design, odeur livres', 'Design web, IA de recommandation, ergonomie'],
+      ['Avantage principal', 'Essai des produits, conseil expert, billetterie', 'Prix très bas, catalogue illimité, livraison rapide']
+    ],
+    q10forts: ['Possibilité de tester les produits avant achat : fort avantage sur les pure players', 'Services exclusifs (billetterie, ateliers, événements) qui créent de la valeur au-delà de la vente', 'Conseil expert des vendeurs spécialisés (high-tech, livres, musique)'],
+    q10faibles: ['Prix souvent plus élevés qu\'Amazon ou Cdiscount : pression forte sur les marges', 'Nécessite de se déplacer en magasin pour les produits non disponibles en click & collect rapide'],
+    q11: ['Développer davantage les espaces d\'expérience (gaming café, studio photo loué à l\'heure) pour transformer le magasin en lieu de vie', 'Proposer un abonnement gaming/streaming intégré à l\'adhésion FNAC pour concurrencer Amazon Prime', 'Renforcer l\'offre de seconde main (reconditionnés certifiés) pour répondre aux attentes environnementales']
+  },
+
+  Decathlon: {
+    type: 'UC physique — GSS (Grande Surface Spécialisée) sport',
+    groupe: 'Groupe Mulliez (Association Familiale Mulliez)',
+    zone: 'Régionale (10 à 25 km)',
+    surface: 'De 2 000 à + de 10 000 m²',
+    cible: 'Sportifs de tous niveaux, familles, enfants, débutants et pratiquants réguliers toutes disciplines',
+    q2def: 'Decathlon est une UC physique de type GSS (Grande Surface Spécialisée) dans le sport : le client doit se déplacer en magasin pour accéder à une offre spécialisée très large de matériel et de vêtements sportifs.',
+    q2just: 'Les produits peuvent être essayés et testés directement en magasin (vélos, raquettes, chaussures). Les vendeurs sont des experts sportifs dans leur rayon.',
+    q3rep: 'Régionale', q3just: 'Les magasins Decathlon sont généralement situés en zone commerciale périphérique. Leur zone d\'attraction va de 10 à 25 km, les clients venant souvent en voiture.',
+    q4: [
+      ['Familles de produits', 'Sport et loisirs : vêtements, chaussures, équipements pour + de 70 sports (vélo, natation, fitness, randonnée, foot…)'],
+      ['Niveau de gamme', 'Entrée et milieu de gamme principalement. Positionnement "qualité au meilleur prix". Gammes propres par sport'],
+      ['Marques présentes', 'Marques propres Decathlon (Quechua, Domyos, B\'Twin, Kipsta…) principalement. Quelques grandes marques (Adidas, Nike) en rayon'],
+      ['Services associés', 'Location de matériel, atelier réparation vélo, cours sportifs, carte fidélité, click & collect, livraison, reprise d\'articles']
+    ],
+    q5: [
+      ['Visuel / éclairage', 'Éclairage lumineux et sportif, produits exposés en situation d\'usage (vélos suspendus, mannequins actifs)', 'Inspire l\'envie de pratiquer, facilite la projection du client dans l\'usage du produit'],
+      ['Sonore / musical', 'Musique dynamique et rythmée (électro, pop), ambiance sportive et énergique', 'Donne l\'envie de bouger, crée une énergie positive, stimule l\'achat'],
+      ['Olfactif', 'Odeur de caoutchouc, matières sportives, parfois café en entrée de magasin', 'Odeur caractéristique qui renforce l\'identité de l\'enseigne'],
+      ['Spatial / agencement', 'Grands espaces par sport, pistes d\'essai (vélos), murs d\'escalade, terrains de démonstration intégrés', 'Transforme le magasin en terrain de jeu, incite à l\'essai et à l\'achat']
+    ],
+    q6: [
+      {aff:'L\'enseigne dispose d\'au moins un magasin physique.', rep:true, expl:'Decathlon possède plus de 350 magasins physiques en France.'},
+      {aff:'La zone de chalandise est limitée à un périmètre géographique précis.', rep:true, expl:'Les magasins Decathlon attirent dans un rayon de 10 à 25 km. Les clients viennent souvent en voiture depuis les zones péri-urbaines.'},
+      {aff:'L\'enseigne propose une vente en ligne (site e-commerce ou application).', rep:true, expl:'Decathlon propose un site e-commerce complet (decathlon.fr) et une application avec click & collect.'}
+    ],
+    q7: 'Carte Decathlon (fidélité) et application Decathlon : coupons de réduction, historique d\'achats, recommandations personnalisées par sport pratiqué, accès aux événements sportifs partenaires.\nEfficacité : forte fidélisation par la communauté sportive. Les sportifs réguliers renouvellent régulièrement leur équipement.',
+    q8rep: 'Oui — UC phygitale',
+    q8outils: ['Application Decathlon : carte fidélité, scan de produits, réalité augmentée pour certains articles', 'Click & collect : commande en ligne, retrait en 2h en magasin', 'Bornes interactives pour comparer les produits et accéder aux fiches techniques détaillées'],
+    q8impact: 'Fluidifie le parcours client, permet d\'accéder au catalogue complet, fidélise les sportifs par des recommandations adaptées à leur pratique.',
+    q9col2: 'Amazon (UC virtuelle)',
+    q9: [
+      ['Type d\'UC', 'UC physique — GSS sport', 'UC virtuelle — Pure player'],
+      ['Zone de chalandise', 'Régionale (10 à 25 km)', 'Internationale'],
+      ['Accès client', 'Déplacement en magasin, essai produit', 'Internet 24h/24'],
+      ['Facteurs d\'ambiance', 'Musique dynamique, espaces d\'essai, mannequins', 'Design web, recommandations IA'],
+      ['Avantage principal', 'Essai des produits, conseil expert, larges espaces', 'Prix bas, livraison rapide, catalogue illimité']
+    ],
+    q10forts: ['Possibilité de tester les produits en conditions réelles (piste vélo, mur escalade)', 'Prix très compétitifs pour la qualité proposée grâce aux marques propres', 'Large gamme couvrant + de 70 sports : tout dans un seul magasin'],
+    q10faibles: ['Situé en périphérie : peu accessible sans voiture', 'Marques propres dominantes : peu de grandes marques (Nike, Adidas) en rayon'],
+    q11: ['Développer des formats de proximité en centre-ville pour capter les citadins sportifs', 'Renforcer l\'offre de matériel de seconde main et de location pour répondre aux enjeux environnementaux', 'Intégrer la réalité augmentée pour permettre de visualiser l\'équipement sportif sur soi avant achat']
+  },
+
+  Zara: {
+    type: 'UC physique — GSS (Grande Surface Spécialisée) mode / fast-fashion',
+    groupe: 'Groupe Inditex (Espagne)',
+    zone: 'Régionale (10 à 30 km selon implantation)',
+    surface: 'De 1 000 à + de 4 000 m² selon le format',
+    cible: 'Femmes, hommes et enfants, 15-45 ans, sensibles aux tendances mode, rapport qualité/prix/tendance',
+    q2def: 'Zara est une UC physique de type GSS mode (fast-fashion) : le client doit se déplacer en magasin pour accéder à des collections renouvelées très fréquemment, dans un environnement de boutique haut de gamme.',
+    q2just: 'Les collections changent toutes les deux semaines environ. Le client vient régulièrement en magasin pour découvrir les nouveautés et ne pas manquer les pièces tendance.',
+    q3rep: 'Régionale', q3just: 'Les magasins Zara sont implantés dans les centres-villes et centres commerciaux des grandes agglomérations. Leur zone d\'attractivité va de 10 à 30 km.',
+    q4: [
+      ['Familles de produits', 'Prêt-à-porter femme, homme, enfant (Zara Kids). Accessoires, chaussures, parfums (Zara Home distincte)'],
+      ['Niveau de gamme', 'Milieu de gamme avec ambiance haut de gamme. Tarifs accessibles pour un positionnement mode/tendance'],
+      ['Marques présentes', 'Marque unique : Zara. Pas de multi-marques. Collections propres renouvellées toutes les 2 semaines'],
+      ['Services associés', 'Application Zara, click & collect, livraison à domicile, retours gratuits en magasin, espace essayage']
+    ],
+    q5: [
+      ['Visuel / éclairage', 'Éclairage design et scénographique (spots orientés, zones lumineuses), présentation épurée type boutique de luxe', 'Valorise les produits, donne une perception de qualité supérieure à la réalité du prix'],
+      ['Sonore / musical', 'Musique sélectionnée et tendance (électro, house), diffusée à volume modéré', 'Crée une ambiance branchée, place le client dans un état d\'esprit de shopping plaisir'],
+      ['Olfactif', 'Parfum d\'ambiance distinctif et signature diffusé en continu dans les magasins', 'Identité olfactive forte qui déclenche une réaction de marque (Pavlov) et fidélise'],
+      ['Spatial / agencement', 'Grands espaces dégagés, mannequins mis en scène comme dans une vitrine de luxe, cabines d\'essayage spacieuses', 'Invite à essayer, valorise l\'expérience, réduit la résistance à l\'achat']
+    ],
+    q6: [
+      {aff:'L\'enseigne dispose d\'au moins un magasin physique.', rep:true, expl:'Zara possède des centaines de magasins physiques en France et dans le monde.'},
+      {aff:'La zone de chalandise est limitée à un périmètre géographique précis.', rep:true, expl:'Chaque magasin Zara attire dans un rayon de 10 à 30 km selon sa localisation.'},
+      {aff:'L\'enseigne propose une vente en ligne (site e-commerce ou application).', rep:true, expl:'Zara dispose d\'un site e-commerce performant (zara.com) et d\'une application mobile avec réalité augmentée pour visualiser les vêtements.'}
+    ],
+    q7: 'Application Zara : notifications lors des nouveautés, click & collect, retours simplifiés, visualisation des collections en réalité augmentée. Pas de programme de points classique : la fidélité est construite par le renouvellement fréquent des collections.\nEfficacité : très efficace car la fréquence de renouvellement (toutes les 2 semaines) crée un sentiment d\'urgence et pousse à revenir souvent en magasin.',
+    q8rep: 'Oui — UC phygitale',
+    q8outils: ['Application Zara avec réalité augmentée (mannequins virtuels qui s\'animent sur smartphone)', 'Click & collect : commande en ligne, retrait en magasin', 'Cabines d\'essayage connectées avec demande d\'autres tailles via écran tactile'],
+    q8impact: 'Modernise l\'expérience shopping, attire les jeunes consommateurs digitaux, facilite les retours et échanges.',
+    q9col2: 'Amazon (UC virtuelle)',
+    q9: [
+      ['Type d\'UC', 'UC physique — GSS mode', 'UC virtuelle — Pure player'],
+      ['Zone de chalandise', 'Régionale (10 à 30 km)', 'Internationale'],
+      ['Accès client', 'Déplacement en magasin', 'Internet 24h/24'],
+      ['Facteurs d\'ambiance', 'Lumière design, parfum signature, musique branchée', 'Design web, photos HD, recommandations IA'],
+      ['Avantage principal', 'Essayage, conseil, expérience mode immersive', 'Prix bas, livraison rapide, catalogue immense']
+    ],
+    q10forts: ['Renouvellement très fréquent des collections (toutes les 2 semaines) : crée de la rareté et l\'urgence d\'acheter', 'Expérience en magasin très soignée : ambiance luxe accessible, parfum signature fort', 'Forte présence numérique (app, réalité augmentée) : leader dans la mode phygitale'],
+    q10faibles: ['Critiques croissantes sur l\'impact environnemental du fast-fashion (surproduction, gaspillage)', 'Pas de programme de fidélité traditionnel avec points : moins de récompenses que chez des concurrents'],
+    q11: ['Développer une ligne de vêtements éco-responsables (matières recyclées) pour répondre aux critiques environnementales', 'Lancer un programme de reprise des vêtements usagés (seconde main Zara) pour fidéliser et améliorer l\'image', 'Renforcer la personnalisation via l\'IA : suggestions de tenues complètes basées sur les achats passés']
+  },
+
+  Sephora: {
+    type: 'UC physique — GSS (Grande Surface Spécialisée) beauté / cosmétiques',
+    groupe: 'Groupe LVMH (Moët Hennessy Louis Vuitton)',
+    zone: 'Régionale (10 à 30 km selon implantation)',
+    surface: 'De 500 à + de 2 000 m²',
+    cible: 'Femmes et hommes passionnés de beauté, 16-45 ans, clientèle sensible aux nouvelles tendances beauté et aux marques premium',
+    q2def: 'Sephora est une UC physique de type GSS (Grande Surface Spécialisée) dans la beauté : le client se déplace en magasin pour accéder à une large offre de cosmétiques, parfums et soins, avec possibilité d\'essai des produits sur place.',
+    q2just: 'On peut tester les parfums, essayer les fards à paupières sur les testers, se faire maquiller par un conseiller. L\'expérience sensorielle est au cœur de la visite.',
+    q3rep: 'Régionale', q3just: 'Les magasins Sephora sont implantés dans les centres-villes et centres commerciaux premium. Leur zone d\'attractivité va de 10 à 30 km.',
+    q4: [
+      ['Familles de produits', 'Maquillage, soins visage et corps, parfums, accessoires beauté, soins capillaires, compléments beauté'],
+      ['Niveau de gamme', 'Milieu et haut de gamme. Marques prestige et luxe (Dior, Chanel, YSL…) + marques tendance (Fenty Beauty, NYX)'],
+      ['Marques présentes', 'Grandes marques beauté mondiales + marque propre Sephora Collection (entrée de gamme qualitative)'],
+      ['Services associés', 'Programme de fidélité Sephora, application beauté, ateliers make-up, diagnostic peau, click & collect, livraison']
+    ],
+    q5: [
+      ['Visuel / éclairage', 'Éclairage très blanc et puissant (reproduit la lumière naturelle), miroirs partout, présentation luxueuse des produits', 'Met les produits en valeur, permet un essai maquillage dans de bonnes conditions lumineuses'],
+      ['Sonore / musical', 'Musique électro ou pop tendance, volume modéré, ambiance dynamique', 'Crée une atmosphère moderne et branchée, en phase avec la cible jeune'],
+      ['Olfactif', 'Mélange de parfums (zone parfumerie), odeurs de maquillage frais, crèmes', 'Forte immersion sensorielle olfactive : expérience unique qui déclenche des émotions liées à la beauté'],
+      ['Spatial / agencement', 'Stands par marque avec espaces de démonstration, chaises de maquillage, zones d\'essai accessibles sans vendeur', 'Invite à l\'autonomie d\'essai, réduit la pression d\'achat, augmente le temps passé en magasin']
+    ],
+    q6: [
+      {aff:'L\'enseigne dispose d\'au moins un magasin physique.', rep:true, expl:'Sephora possède plus de 300 magasins physiques en France.'},
+      {aff:'La zone de chalandise est limitée à un périmètre géographique précis.', rep:true, expl:'Chaque magasin Sephora attire dans un rayon de 10 à 30 km selon sa localisation (centre-ville, galerie marchande premium).'},
+      {aff:'L\'enseigne propose une vente en ligne (site e-commerce ou application).', rep:true, expl:'Sephora.fr est un site e-commerce complet avec diagnostic beauté IA, click & collect, et l\'application Sephora propose la réalité augmentée pour tester les produits virtuellement.'}
+    ],
+    q7: 'Programme de fidélité Sephora : points accumulés à chaque achat, convertis en bons de réduction. Statuts : Blanc, Noir, Or selon le montant d\'achats annuels.\nEfficacité : très efficace. Le système de statuts crée de l\'aspiration (passer au niveau supérieur), les avantages réservés aux membres Or fidélisent durablement les clientes les plus dépensières.',
+    q8rep: 'Oui — UC phygitale (modèle très avancé)',
+    q8outils: ['Application Sephora avec réalité augmentée : essayer le maquillage virtuellement sur son visage avant achat', 'Bornes de diagnostic de peau en magasin (analyse colorimétrie, type de peau)', 'Click & collect et livraison depuis sephora.fr'],
+    q8impact: 'Révolutionne l\'essai produit (sans contamination), personnalise les recommandations, attire une clientèle jeune et digitale.',
+    q9col2: 'Amazon (UC virtuelle)',
+    q9: [
+      ['Type d\'UC', 'UC physique — GSS beauté', 'UC virtuelle — Pure player'],
+      ['Zone de chalandise', 'Régionale (10 à 30 km)', 'Internationale'],
+      ['Accès client', 'Déplacement en magasin, essai produit', 'Internet 24h/24'],
+      ['Facteurs d\'ambiance', 'Lumière blanche, parfums, musique tendance, testers', 'Design web, photos HD, recommandations IA'],
+      ['Avantage principal', 'Essai réel des produits, conseil expert beauté, expérience sensorielle', 'Prix compétitifs, catalogue immense, livraison rapide']
+    ],
+    q10forts: ['Expérience d\'essai unique : les produits de beauté s\'essaient en magasin (parfums, maquillage)', 'Programme de fidélité très efficace avec système de statuts aspirationnels', 'Innovation phygitale pionnière : réalité augmentée, diagnostic peau IA'],
+    q10faibles: ['Prix souvent plus élevés que sur Amazon ou des sites spécialisés discount', 'Concentration de parfums intenses peut incommoder certains clients'],
+    q11: ['Développer davantage les ateliers de maquillage et les diagnostics peau IA pour transformer le magasin en lieu de formation beauté', 'Renforcer l\'offre de produits naturels et vegan pour répondre à la demande croissante de cosmétiques éco-responsables', 'Lancer un programme de seconde main beauté (produits neufs non ouverts) pour réduire les emballages et valoriser les retours']
+  }
+};
+
+// Enseigne par défaut pour "Autre"
+const DATA_GENERIQUE = {
+  type: 'À compléter selon l\'enseigne choisie',
+  groupe: 'À rechercher',
+  zone: 'Locale / Régionale / Nationale / Internationale selon le type d\'UC',
+  surface: 'À estimer lors de la visite ou à rechercher',
+  cible: 'À définir selon les produits et la localisation',
+  q2def: 'Définir le type d\'UC (physique, virtuelle, phygitale) et expliquer comment le client y accède.',
+  q2just: 'Justifier avec un argument concret : localisation, mode d\'achat, caractéristiques observées.',
+  q3rep: 'À déterminer selon le type d\'UC', q3just: 'UC physique locale : rayon de 2 à 10 km. UC régionale : 10 à 30 km. UC virtuelle : nationale ou internationale.',
+  q4: [
+    ['Familles de produits', 'À décrire selon les rayons observés'],
+    ['Niveau de gamme', 'Entrée / milieu / haut de gamme — selon les prix et les marques'],
+    ['Marques présentes', 'Marques nationales + MDD éventuelle'],
+    ['Services associés', 'Fidélité, livraison, click & collect, SAV…']
+  ],
+  q5: [
+    ['Visuel / éclairage', 'Description de l\'éclairage et des couleurs dominantes', 'Attire l\'œil, met en valeur les produits'],
+    ['Sonore / musical', 'Musique présente ou absente, volume, style', 'Ralentit ou accélère le rythme du client'],
+    ['Olfactif', 'Odeurs perçues (boulangerie, produits frais…)', 'Stimule ou non les achats impulsifs'],
+    ['Spatial / agencement', 'Organisation des rayons, largeur des allées', 'Oriente le parcours client, maximise l\'exposition']
+  ],
+  q6: [
+    {aff:'L\'enseigne dispose d\'au moins un magasin physique.', rep:null, expl:'Réponse variable selon l\'enseigne. UC physique ou phygitale = Vrai. Pure player = Faux.'},
+    {aff:'La zone de chalandise est limitée à un périmètre géographique précis.', rep:null, expl:'Vrai pour UC physique. Faux pour pure player (nationale/internationale).'},
+    {aff:'L\'enseigne propose une vente en ligne (site e-commerce ou application).', rep:null, expl:'Variable : pure player = Vrai toujours. UC physique = dépend de l\'enseigne.'}
+  ],
+  q7: 'Identifier l\'outil de fidélité de l\'enseigne (carte, appli, abonnement…), décrire son fonctionnement et évaluer son efficacité.',
+  q8rep: 'À déterminer selon l\'enseigne',
+  q8outils: ['Identifier les outils numériques présents en magasin ou sur le site', 'Application mobile si elle existe', 'Services click & collect, drive, borne interactive…'],
+  q8impact: 'Analyser l\'impact sur l\'expérience client et la fidélisation.',
+  q9col2: 'UC de type différent (au choix de l\'élève)',
+  q9: [
+    ['Type d\'UC', 'À renseigner selon l\'enseigne', 'À renseigner selon le choix de l\'élève'],
+    ['Zone de chalandise', 'À définir', 'À définir'],
+    ['Accès client', 'À décrire', 'À décrire'],
+    ['Facteurs d\'ambiance', 'À observer', 'À comparer'],
+    ['Avantage principal', 'À identifier', 'À comparer']
+  ],
+  q10forts: ['Point fort 1 identifié lors de la visite ou des recherches', 'Point fort 2 argumenté'],
+  q10faibles: ['Point faible 1 identifié et justifié', 'Point faible 2 argumenté'],
+  q11: ['Proposition 1 concrète, réaliste et justifiée', 'Proposition 2 liée aux caractéristiques de l\'UC', 'Proposition 3 argumentée en 3-4 lignes']
+};
+
+// ════════════════════════════════════════════════
+// FONCTIONS
+// ════════════════════════════════════════════════
+let enseigneActuelle = '';
+const ENSEIGNES_LIST = ['Franprix','Casino','Cdiscount','Carrefour','Leclerc','Lidl','Amazon','FNAC','Decathlon','Zara','Sephora'];
+
+function selectEnseigne(nom) {
+  document.querySelectorAll('.enseigne-chip').forEach(c => c.classList.remove('selected'));
+  const chip = [...document.querySelectorAll('.enseigne-chip')].find(c => c.textContent === nom);
+  if (chip) chip.classList.add('selected');
+  if (nom !== 'Autre') document.getElementById('cfg-enseigne').value = nom;
+  else { document.getElementById('cfg-enseigne').value = ''; document.getElementById('cfg-enseigne').focus(); }
+}
+
+function afficherCorrige() {
+  const enseigne = document.getElementById('cfg-enseigne').value.trim();
+  if (!enseigne) { alert('Veuillez choisir ou saisir une enseigne.'); return; }
+  enseigneActuelle = enseigne;
+  const classe = document.getElementById('cfg-classe').value || '2de Bac Pro';
+  const dateVal = document.getElementById('cfg-date').value;
+
+  document.getElementById('banner-enseigne').textContent = enseigne;
+  document.getElementById('banner-classe').textContent = classe;
+  document.getElementById('m-enseigne').textContent = enseigne;
+  document.getElementById('m-classe').textContent = classe;
+  document.getElementById('bar-enseigne').textContent = enseigne + ' — ' + classe;
+  document.title = 'CORRIGÉ UC — ' + enseigne;
+  if (dateVal) {
+    const d = new Date(dateVal);
+    document.getElementById('m-date').textContent = d.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+  }
+
+  // Onglets enseignes
+  const tabs = document.getElementById('enseigne-tabs');
+  tabs.innerHTML = '<span style="font-size:11px;font-weight:800;color:var(--ink-muted);text-transform:uppercase;letter-spacing:1px;margin-right:4px;">Changer :</span>';
+  ENSEIGNES_LIST.forEach(e => {
+    const btn = document.createElement('span');
+    btn.className = 'etab' + (e === enseigne ? ' active' : '');
+    btn.textContent = e;
+    btn.onclick = () => chargerCorrige(e);
+    tabs.appendChild(btn);
+  });
+
+  chargerCorrige(enseigne);
+
+  document.getElementById('setup-screen').style.display = 'none';
+  document.getElementById('corrige-screen').style.display = 'block';
+}
+
+function chargerCorrige(enseigne) {
+  enseigneActuelle = enseigne;
+  const d = DATA[enseigne] || DATA_GENERIQUE;
+
+  // Update tabs
+  document.querySelectorAll('.etab').forEach(t => t.classList.toggle('active', t.textContent === enseigne));
+  document.getElementById('banner-enseigne').textContent = enseigne;
+  document.getElementById('m-enseigne').textContent = enseigne;
+  document.getElementById('bar-enseigne').textContent = enseigne + ' — ' + document.getElementById('m-classe').textContent;
+  document.title = 'CORRIGÉ UC — ' + enseigne;
+
+  // Noms dynamiques
+  document.querySelectorAll('.dyn-e').forEach(el => el.textContent = enseigne);
+  ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11'].forEach(id => {
+    const el = document.getElementById(id+'-enseigne');
+    if (el) el.textContent = enseigne;
+  });
+
+  // Q1 table
+  const q1rows = [
+    ['Nom de l\'enseigne', enseigne, '0,5 pt'],
+    ['Groupe d\'appartenance', d.groupe, '0,5 pt'],
+    ['Type d\'UC', d.type, '0,5 pt'],
+    ['Localisation / zone', 'Zone commerciale, centre-ville ou internet selon le format', '0,5 pt'],
+    ['Surface de vente', d.surface, '0,5 pt'],
+    ['Cible clientèle', d.cible, '0,5 pt']
+  ];
+  document.getElementById('q1-table').innerHTML = q1rows.map((r,i) =>
+    `<tr><td>${r[0]}</td><td><span class="rep">${r[1]}</span></td><td style="text-align:center;font-family:'Fira Mono',monospace;color:var(--gold);font-weight:700;">${r[2]}</td></tr>`
+  ).join('');
+
+  // Q2
+  document.getElementById('q2-corrige').innerHTML = `
+    <div class="corrige-item"><div class="ci-label">Définition (1 pt) :</div><div class="ci-val"><strong>${d.q2def}</strong></div></div>
+    <div class="corrige-item" style="margin-top:6px;"><div class="ci-label">Justification (1 pt) :</div><div class="ci-val">${d.q2just}</div></div>`;
+
+  // Q3
+  document.getElementById('q3-corrige').innerHTML = `
+    <div class="corrige-item"><div class="ci-label">Réponse (0,5 pt) :</div><div class="ci-val"><strong style="color:var(--vert);">→ ${d.q3rep}</strong></div></div>
+    <div class="corrige-item" style="margin-top:6px;"><div class="ci-label">Justification (0,5 pt) :</div><div class="ci-val">${d.q3just}</div></div>`;
+
+  // Q4
+  document.getElementById('q4-table').innerHTML = d.q4.map((r,i) =>
+    `<tr><td>${r[0]}</td><td><span class="rep">${r[1]}</span></td></tr>`
+  ).join('');
+
+  // Q5
+  document.getElementById('q5-table').innerHTML = d.q5.map(r =>
+    `<tr><td>${r[0]}</td><td><span class="rep">${r[1]}</span></td><td><em>${r[2]}</em></td></tr>`
+  ).join('');
+
+  // Q6
+  document.getElementById('q6-vf').innerHTML = d.q6.map((item,i) => {
+    const repStr = item.rep === true ? '✔ VRAI' : item.rep === false ? '✘ FAUX' : '? Variable';
+    const repCls = item.rep === true ? 'v' : item.rep === false ? 'f' : '';
+    return `<div class="vf-corrige-row"><div class="vf-aff">${item.aff}</div><div class="vf-rep ${repCls}">${repStr}</div></div>
+    <div class="vf-expl">${item.expl}</div>`;
+  }).join('');
+
+  // Q7
+  document.getElementById('q7-corrige').innerHTML = d.q7.split('\n').map((line,i) => {
+    if (i===0) return `<div class="corrige-item"><div class="ci-label">Outil (0,5 pt) :</div><div class="ci-val"><strong>${line}</strong></div></div>`;
+    if (i===1) return `<div class="corrige-item" style="margin-top:4px;"><div class="ci-label">Description (0,5 pt) :</div><div class="ci-val">${line}</div></div>`;
+    return `<div class="corrige-item" style="margin-top:4px;"><div class="ci-label">Efficacité (0,5 pt) :</div><div class="ci-val">${line}</div></div>`;
+  }).join('');
+
+  // Q8
+  document.getElementById('q8-corrige').innerHTML = `
+    <div class="corrige-item"><div class="ci-label">Choix (0,5 pt) :</div><div class="ci-val"><strong style="color:var(--vert);">${d.q8rep}</strong></div></div>
+    ${d.q8outils.map((o,i) => `<div class="corrige-item" style="margin-top:4px;"><div class="ci-label">Outil ${i+1} (0,5 pt) :</div><div class="ci-val">${o}</div></div>`).join('')}
+    <div class="corrige-item" style="margin-top:4px;"><div class="ci-label">Impact (0,5 pt) :</div><div class="ci-val">${d.q8impact}</div></div>`;
+
+  // Q9
+  document.getElementById('q9-col1').textContent = enseigne;
+  document.getElementById('q9-col2').textContent = d.q9col2;
+  document.getElementById('q9-table').innerHTML = d.q9.map(r =>
+    `<tr><td>${r[0]}</td><td><span class="rep">${r[1]}</span></td><td><span class="rep" style="color:var(--accent);">${r[2]}</span></td></tr>`
+  ).join('');
+
+  // Q10
+  document.getElementById('q10-corrige').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;">
+      <div style="border:2px solid #bbf7d0;border-radius:8px;padding:10px;">
+        <div style="font-size:10px;font-weight:800;color:var(--vert);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">✅ Points forts attendus</div>
+        ${d.q10forts.map(f => `<div style="font-size:12.5px;margin-bottom:4px;"><span style="color:var(--vert);font-weight:700;">▸</span> ${f}</div>`).join('')}
+      </div>
+      <div style="border:2px solid #fecaca;border-radius:8px;padding:10px;">
+        <div style="font-size:10px;font-weight:800;color:var(--rouge);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">⚠️ Points faibles attendus</div>
+        ${d.q10faibles.map(f => `<div style="font-size:12.5px;margin-bottom:4px;"><span style="color:var(--rouge);font-weight:700;">▸</span> ${f}</div>`).join('')}
+      </div>
+    </div>`;
+
+  // Q11
+  document.getElementById('q11-corrige').innerHTML = d.q11.map((p,i) =>
+    `<div class="corrige-item"><div class="ci-label">Proposition ${i+1} :</div><div class="ci-val">${p}</div></div>`
+  ).join('');
+}
+
+function resetCorrige() {
+  document.getElementById('corrige-screen').style.display = 'none';
+  document.getElementById('setup-screen').style.display = 'flex';
+}
+</script>
+</body>
+</html>
